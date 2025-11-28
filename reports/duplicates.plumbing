@@ -1,0 +1,2 @@
+dummy.go:5-22: duplicate of dummy.go:24-41
+dummy.go:24-41: duplicate of dummy.go:5-22
