@@ -18,6 +18,7 @@ func main() {
 		jsonPath  = flag.String("json", "reports/duplicates.json", "Path to output JSON report")
 		textPath  = flag.String("text", "reports/duplicates.txt", "Path to output Text report")
 		htmlPath  = flag.String("html", "reports/duplicates.html", "Path to output HTML report")
+		plumbingPath = flag.String("plumbing", "reports/duplicates.plumbing", "Path to output Plumbing report")
 		exclude   = flag.String("exclude", "", "Comma-separated list of file patterns to exclude (e.g. '*_test.go,generated.go')")
 		verbose   = flag.Bool("v", false, "Verbose output")
 	)
@@ -94,6 +95,21 @@ func main() {
 		}
 		if *verbose {
 			log.Printf("HTML report written to %s", *htmlPath)
+		}
+	}
+	
+	// Generate Plumbing
+	if *plumbingPath != "" {
+		f, err := os.Create(*plumbingPath)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
+		if err := report.ToPlumbing(f, groups); err != nil {
+			log.Fatal(err)
+		}
+		if *verbose {
+			log.Printf("Plumbing report written to %s", *plumbingPath)
 		}
 	}
 
