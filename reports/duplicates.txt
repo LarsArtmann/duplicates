@@ -1,5 +1,0 @@
-found 2 clones:
-  dummy.go:5,22
-  dummy.go:24,41
-
-Found total 1 clone groups.

@@ -1,0 +1,13 @@
+# Binaries
+/dist/
+/bin/
+
+# Reports
+/reports/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
