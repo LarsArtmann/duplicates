@@ -14,13 +14,13 @@ import (
 
 func main() {
 	var (
-		threshold = flag.Int("threshold", 15, "Minimum token sequence size to consider as a duplicate")
-		jsonPath  = flag.String("json", "reports/duplicates.json", "Path to output JSON report")
-		textPath  = flag.String("text", "reports/duplicates.txt", "Path to output Text report")
-		htmlPath  = flag.String("html", "reports/duplicates.html", "Path to output HTML report")
+		threshold    = flag.Int("threshold", 15, "Minimum token sequence size to consider as a duplicate")
+		jsonPath     = flag.String("json", "reports/duplicates.json", "Path to output JSON report")
+		textPath     = flag.String("text", "reports/duplicates.txt", "Path to output Text report")
+		htmlPath     = flag.String("html", "reports/duplicates.html", "Path to output HTML report")
 		plumbingPath = flag.String("plumbing", "reports/duplicates.plumbing", "Path to output Plumbing report")
-		exclude   = flag.String("exclude", "", "Comma-separated list of file patterns to exclude (e.g. '*_test.go,generated.go')")
-		verbose   = flag.Bool("v", false, "Verbose output")
+		exclude      = flag.String("exclude", "", "Comma-separated list of file patterns to exclude (e.g. '*_test.go,generated.go')")
+		verbose      = flag.Bool("v", false, "Verbose output")
 	)
 	flag.Parse()
 
@@ -49,7 +49,7 @@ func main() {
 	})
 
 	// Ensure reports directory exists
-	if err := os.MkdirAll("reports", 0755); err != nil {
+	if err := os.MkdirAll("reports", 0o755); err != nil {
 		log.Fatal(err)
 	}
 
@@ -97,7 +97,7 @@ func main() {
 			log.Printf("HTML report written to %s", *htmlPath)
 		}
 	}
-	
+
 	// Generate Plumbing
 	if *plumbingPath != "" {
 		f, err := os.Create(*plumbingPath)

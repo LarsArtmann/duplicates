@@ -29,32 +29,36 @@ body { font-family: sans-serif; padding: 20px; }
 		fmt.Fprintf(w, `<div class="group">
 <div class="header">Score: %d | Instances: %d</div>
 `, g.Score, len(g.Instances))
-		
+
 		for _, inst := range g.Instances {
 			fmt.Fprintf(w, `<div class="clone">
 <div>%s:%d-%d</div>
 `, inst.Filename, inst.StartLine, inst.EndLine)
-			
+
 			// Optional: Read file snippet (this is slow for many duplicates, but useful)
 			// For now, let's just show file/line to keep it simple and fast.
 			// If we want snippets, we need to pass a FileProvider.
-			
+
 			// Let's try to read the file content for the snippet
 			content, err := os.ReadFile(inst.Filename)
 			if err == nil {
 				lines := splitLines(content)
 				start := inst.StartLine - 1
 				end := inst.EndLine
-				if start < 0 { start = 0 }
-				if end > len(lines) { end = len(lines) }
-				
+				if start < 0 {
+					start = 0
+				}
+				if end > len(lines) {
+					end = len(lines)
+				}
+
 				fmt.Fprintln(w, `<div class="code">`)
 				for i := start; i < end; i++ {
 					fmt.Fprintf(w, "%4d | %s\n", i+1, html.EscapeString(string(lines[i])))
 				}
 				fmt.Fprintln(w, `</div>`)
 			}
-			
+
 			fmt.Fprintln(w, `</div>`)
 		}
 		fmt.Fprintln(w, `</div>`)

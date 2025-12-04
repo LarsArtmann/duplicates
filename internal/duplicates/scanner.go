@@ -37,12 +37,12 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 				if err == nil && matched {
 					return nil
 				}
-				// Also check full path matching if needed? 
-				// filepath.Match checks against the name. 
+				// Also check full path matching if needed?
+				// filepath.Match checks against the name.
 				// If we want to exclude directories like "internal/duplicates/*", we need to check path.
 				// But standard filepath.Match is simple.
 			}
-			
+
 			if strings.HasSuffix(path, ".go") && !strings.Contains(path, "vendor/") {
 				files <- path
 			}
@@ -69,7 +69,7 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 
 	// 4. Process Groups
 	var result []CloneGroup
-	
+
 	// Cache file content to avoid re-reading
 	fileCache := make(map[string]*LineIndex)
 
@@ -98,9 +98,9 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 			}
 			startNode := c[0]
 			endNode := c[len(c)-1]
-			
+
 			filename := startNode.Filename
-			
+
 			// Get Line Numbers
 			idx, ok := fileCache[filename]
 			if !ok {
@@ -108,7 +108,7 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 				if err != nil {
 					// If we can't read the file, default to 0
 					// In production we might want to log this
-					idx = &LineIndex{newlines: []int{0}} 
+					idx = &LineIndex{newlines: []int{0}}
 				} else {
 					idx = NewLineIndex(content)
 				}
