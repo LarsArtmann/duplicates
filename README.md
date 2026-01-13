@@ -93,8 +93,6 @@ Replace these patterns in your pipelines:
 ### Documentation
 
 - **art-dupl**: [https://github.com/LarsArtmann/art-dupl](https://github.com/LarsArtmann/art-dupl)
-- **Migration Guide**: See [art-dupl/MIGRATION_QUICK_START.md](https://github.com/LarsArtmann/art-dupl/blob/main/MIGRATION_QUICK_START.md)
-- **Technical Report**: See [art-dupl/MIGRATION_REPORT_duplicates.md](https://github.com/LarsArtmann/art-dupl/blob/main/MIGRATION_REPORT_duplicates.md)
 
 ---
 
