@@ -1,3 +1,103 @@
+# ⚠️ ARCHIVED - Please Migrate to art-dupl
+
+> **Status**: This project is **ARCHIVED** as of January 14, 2026
+> **Action**: Please migrate to **[art-dupl](https://github.com/LarsArtmann/art-dupl)** - all functionality is now available there
+
+---
+
+## Migration Information
+
+This repository has been archived because **all functionality has been successfully merged into the more feature-rich `art-dupl` project**.
+
+### Why Archive?
+
+- **Complete feature parity**: Every feature from `duplicates` is now in `art-dupl`
+- **Enhanced capabilities**: `art-dupl` offers many additional features (config files, sorting, filtering, etc.)
+- **Better performance**: Improved LineIndex implementation with binary search
+- **More mature**: `art-dupl` has professional CLI (cobra/fang), auto-completion, and comprehensive testing
+- **Single tooling**: Consolidates duplicate detection into one maintained project
+
+### What's in art-dupl?
+
+✅ **All duplicates features**:
+- Token-sequence detection
+- Configurable threshold
+- Multiple output formats (JSON, HTML, Text, Plumbing)
+- Line number tracking
+- Scoring system (tokens × instances)
+- File exclusion patterns
+- Fast AST-based scanning
+
+✅ **Plus enhancements**:
+- **Simple JSON format** (`--simple-json`) - Exact format match with duplicates
+- **Enhanced JSON format** (`--json`) - Rich metadata and statistics
+- **Multiple sorting options** - Sort by size, occurrence, hash
+- **Config file support** - Team consistency with JSON/YAML config
+- **Auto-generated code filtering** - Ignore sqlc, templ, etc.
+- **Professional CLI** - Auto-completion, version info, man pages
+- **Performance profiling** - Identify bottlenecks
+- **Multiple detection methods** - Suffix tree and hash-based
+
+### Quick Migration Guide
+
+#### Step 1: Install art-dupl
+
+```bash
+# Install from source
+git clone https://github.com/LarsArtmann/art-dupl.git
+cd art-dupl
+make build
+
+# Or via Go
+go install github.com/LarsArtmann/art-dupl@latest
+```
+
+#### Step 2: Replace Commands
+
+```bash
+# Old (duplicates):
+duplicates -threshold 20 -json report.json -html report.html
+
+# New (art-dupl):
+art-dupl --simple-json > report.json
+art-dupl --html > report.html
+
+# Or generate all at once:
+art-dupl --all --output-dir ./reports --threshold 20
+```
+
+#### Step 3: Flag Mapping
+
+| duplicates Flag | art-dupl Flag | Notes |
+|----------------|----------------|--------|
+| `-threshold N` | `--threshold N` or `-t N` | Same functionality |
+| `-json report.json` | `--simple-json > report.json` | Use redirection or `--output-dir` |
+| `-html report.html` | `--html > report.html` | Use redirection or `--output-dir` |
+| `-text report.txt` | default (no flag) | Text is default, use `>` to redirect |
+| `-plumbing` | `--plumbing` | Same functionality |
+| `-v` | `--verbose` or `-v` | Same functionality |
+| `-exclude "pattern"` | `--exclude-pattern "pattern"` | More powerful patterns |
+
+#### Step 4: Update CI/CD Scripts
+
+Replace these patterns in your pipelines:
+
+```yaml
+# Old:
+- run: duplicates -threshold 30 -json report.json
+
+# New:
+- run: art-dupl --simple-json --threshold 30 > report.json
+```
+
+### Documentation
+
+- **art-dupl**: [https://github.com/LarsArtmann/art-dupl](https://github.com/LarsArtmann/art-dupl)
+- **Migration Guide**: See [art-dupl/MIGRATION_QUICK_START.md](https://github.com/LarsArtmann/art-dupl/blob/main/MIGRATION_QUICK_START.md)
+- **Technical Report**: See [art-dupl/MIGRATION_REPORT_duplicates.md](https://github.com/LarsArtmann/art-dupl/blob/main/MIGRATION_REPORT_duplicates.md)
+
+---
+
 # duplicates
 
 A fast and accurate code duplicate detection tool for Go codebases. Find repeated code blocks, identify technical debt, and improve code maintainability.
@@ -13,6 +113,24 @@ A fast and accurate code duplicate detection tool for Go codebases. Find repeate
 - **Fast scanning** - Efficient AST-based analysis
 
 ## Installation
+
+> **IMPORTANT**: This project is archived. Please install [art-dupl](https://github.com/LarsArtmann/art-dupl) instead.
+
+### Install art-dupl (Recommended)
+
+```bash
+# Install from source
+git clone https://github.com/LarsArtmann/art-dupl.git
+cd art-dupl
+make build
+
+# Or via Go
+go install github.com/LarsArtmann/art-dupl@latest
+```
+
+### Install duplicates (Archived - Not Recommended)
+
+For legacy reasons only. All features now in art-dupl.
 
 ```bash
 go install github.com/larsartmann/duplicates/cmd/duplicates@latest
@@ -186,6 +304,10 @@ The `-threshold` value determines what counts as a duplicate:
 
 ## Development
 
+> **IMPORTANT**: This repository is archived. Development continues in [art-dupl](https://github.com/LarsArtmann/art-dupl).
+
+For legacy maintenance of this archived project:
+
 ```bash
 # Run tests
 go test ./...
@@ -197,14 +319,24 @@ go build ./cmd/duplicates
 golangci-lint run
 ```
 
+**For new features and bug fixes**, please contribute to [art-dupl](https://github.com/LarsArtmann/art-dupl).
+
 ## Roadmap
 
-- [ ] Fail threshold (exit code 1 if score exceeds limit)
-- [ ] Git ignore pattern support
-- [ ] Concurrent file scanning
-- [ ] stdin input support for file lists
-- [ ] Config file support (.duplicatesrc)
-- [ ] Language-agnostic mode
+> **Status**: Development has moved to [art-dupl](https://github.com/LarsArtmann/art-dupl)
+
+The following features are now available in art-dupl:
+
+- [x] Fail threshold (exit code 1 if score exceeds limit) - Available in art-dupl
+- [x] Config file support - Available in art-dupl (`--config dupl.json`)
+- [x] Concurrent file scanning - Available in art-dupl
+- [x] stdin input support for file lists - Available in art-dupl (`--files`)
+- [x] Multiple sorting options - Available in art-dupl (`--sort`)
+- [x] Filter auto-generated code - Available in art-dupl (`--filter-generated`)
+- [x] Performance profiling - Available in art-dupl (`--profile`)
+- [ ] Language-agnostic mode - Not yet planned
+
+**Recommendation**: Use [art-dupl](https://github.com/LarsArtmann/art-dupl) for all future features.
 
 ## License
 
@@ -212,8 +344,14 @@ golangci-lint run
 
 ## Contributing
 
-Contributions welcome! Please read the code and submit pull requests.
+> **This repository is archived** - Please contribute to [art-dupl](https://github.com/LarsArtmann/art-dupl) instead.
+
+This repository is maintained in read-only mode for historical purposes. All new features, bug fixes, and improvements should be made to [art-dupl](https://github.com/LarsArtmann/art-dupl), which contains all functionality from this project plus many enhancements.
 
 ---
+
+**Archived**: January 14, 2026
+**Successor**: [art-dupl](https://github.com/LarsArtmann/art-dupl)
+**Reason**: Complete feature parity achieved
 
 Built with [golangci/dupl](https://github.com/golangci/dupl) algorithm
