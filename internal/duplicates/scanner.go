@@ -80,7 +80,7 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 		}
 
 		// Calculate Score
-		// Score = tokens * instances
+		// = tokens * instances
 		tokens := 0
 		for _, n := range clones[0] {
 			tokens += n.Owns + 1
@@ -128,7 +128,7 @@ func (s *Scanner) Scan(root string) ([]CloneGroup, error) {
 	return result, nil
 }
 
-// unique filters out subset duplicates, same as original main.go
+// unique filters out subset duplicates, same as original main.go.
 func unique(group [][]*syntax.Node) [][]*syntax.Node {
 	fileMap := make(map[string]map[int]struct{})
 	var newGroup [][]*syntax.Node
